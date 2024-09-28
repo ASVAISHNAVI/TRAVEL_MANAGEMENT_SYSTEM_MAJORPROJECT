@@ -1,9 +1,11 @@
 import requests
 from datetime import datetime, timedelta
 import urllib.parse
-
+import os
+from dotenv import load_dotenv
+load_dotenv()
 # Configuration
-GOOGLE_API_KEY = 'AIzaSyAepg0t9lRZXSphACvjQupKJuvsZHO7NTU'
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 
 
 def get_location_coordinates(location_name):

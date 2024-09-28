@@ -1,17 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+from dotenv import load_dotenv
 import os
 import urllib.parse
 import requests
 from datetime import datetime, timedelta
 import googlemaps
+load_dotenv()
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
-GOOGLE_API_KEY = 'AIzaSyAepg0t9lRZXSphACvjQupKJuvsZHO7NTU'
-app.config['GOOGLEMAPS_KEY'] = 'AIzaSyAepg0t9lRZXSphACvjQupKJuvsZHO7NTU'
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
+OPENWEATHER_API_KEY = os.getenv('OPENWEATHER_API_KEY')
+app.config['GOOGLEMAPS_KEY'] =os.getenv('GOOGLE_API_KEY')
 gmaps = googlemaps.Client(key=app.config['GOOGLEMAPS_KEY'])
-OPENWEATHER_API_KEY = 'c102053e9535ad922fcee190c71bbd1f'
+
 OPENWEATHER_BASE_URL = 'https://api.openweathermap.org/data/2.5/weather'
 
 # Simulated user credentials (replace with secure storage in production)

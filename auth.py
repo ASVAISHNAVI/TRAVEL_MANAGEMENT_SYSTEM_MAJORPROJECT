@@ -1,7 +1,9 @@
 import requests
-
+from dotenv import load_dotenv
+import os
+load_dotenv()
 # Your Places API key
-api_key = 'AIzaSyC1jXdm9AY7yHWMuAoT8BsKx_VYdZM73CM'
+api_key =  os.getenv('api_key')
 
 # Example place (e.g., "New York")
 place = 'New York'
