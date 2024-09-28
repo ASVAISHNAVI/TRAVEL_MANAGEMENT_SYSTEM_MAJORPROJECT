@@ -1,0 +1,22 @@
+/COM,ANSYS RELEASE Release 19.2      BUILD 19.2      UP20180808       19:11:55
+/COM,ANSYS RELEASE Release 19.2      BUILD 19.2      UP20180808       19:13:50
+
+ *** ERROR ***                           CP =       0.219   TIME= 19:15:01
+ Data file C:\Users\An sundar\Desktop\miniprjtravel\instance\travel_app.d
+ b has incorrect format, is missing READ/WRITE permission, or is empty   
+ for RESUME.                                                             
+
+ *** WARNING ***                         CP =       0.219   TIME= 19:15:01
+ WHILE PROCESSING FILE BASED INPUT (/INPUT OR MACRO) AN ERROR HAS        
+ OCCURRED.  SHOULD INPUT PROCESSING BE SUSPENDED?                        
+
+ *** ERROR ***                           CP =       0.219   TIME= 19:16:17
+ An unexpected error ( SIG$BREAK ) has occurred...  ANSYS internal data  
+ has been corrupted.  ANSYS is unable to recover and will terminate.     
+ Previously saved files are unaffected.  Please send the data leading    
+ to this operation to your technical support provider, as this will      
+ allow ANSYS, Inc to improve the program.                                
+
+ *** WARNING ***                         CP =       0.219   TIME= 19:16:17
+ WHILE PROCESSING FILE BASED INPUT (/INPUT OR MACRO) AN ERROR HAS        
+ OCCURRED.  SHOULD INPUT PROCESSING BE SUSPENDED?                        

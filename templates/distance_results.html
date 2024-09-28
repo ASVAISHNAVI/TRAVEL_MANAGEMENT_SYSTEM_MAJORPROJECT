@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distance Results</title>
+</head>
+<body>
+    <h2>Distance Calculation Results</h2>
+    {% if distance_data %}
+        <ul>
+            {% for row in distance_data.rows %}
+                {% for element in row.elements %}
+                    <li>
+                        <p>Origin: {{ element.origin_addresses[0] }}</p>
+                        <p>Destination: {{ element.destination_addresses[0] }}</p>
+                        <p>Distance: {{ element.distance.text }}</p>
+                        <p>Duration: {{ element.duration.text }}</p>
+                    </li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

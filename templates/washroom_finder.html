@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Washroom Finder</h2>
+
+  <form action="{{ url_for('washroom_finder') }}" method="POST">
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" required>
+    <button type="submit">Find Washrooms</button>
+  </form>
+
+  <div class="filters">
+    <h3>Filters:</h3>
+    <form action="{{ url_for('washroom_finder') }}" method="POST">
+      <label for="accessibility">Accessibility:</label>
+      <select id="accessibility" name="accessibility">
+        <option value="any">Any</option>
+        <option value="wheelchair_accessible">Wheelchair Accessible</option>
+        <!-- Add more accessibility options as needed -->
+      </select>
+
+      <label for="cleanliness">Cleanliness Rating:</label>
+      <select id="cleanliness" name="cleanliness">
+        <option value="any">Any</option>
+        <option value="clean">Clean</option>
+        <!-- Add more cleanliness options as needed -->
+      </select>
+
+      <label for="amenities">Amenities:</label>
+      <select id="amenities" name="amenities">
+        <option value="any">Any</option>
+        <option value="baby_changing_station">Baby Changing Station</option>
+        <!-- Add more amenity options as needed -->
+      </select>
+
+      <button type="submit">Apply Filters</button>
+    </form>
+  </div>
+
+  {% if washrooms %}
+    <ul>
+      {% for washroom in washrooms %}
+        <li>
+          <h3>{{ washroom['name'] }}</h3>
+          <p>{{ washroom['address'] }}</p>
+          <p>Rating: {{ washroom['rating'] }}</p>
+          {% if washroom['opening_hours'] %}
+            <p>Opening Hours: 
+              {% if washroom['opening_hours']['open_now'] %}
+                Open Now
+              {% else %}
+                Closed
+              {% endif %}
+            </p>
+          {% endif %}
+          {% if washroom['photo_url'] %}
+            <img src="{{ washroom['photo_url'] }}" alt="Washroom Photo">
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

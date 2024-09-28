@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* General reset and styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, rgba(248, 248, 255, 0.7), rgba(240, 248, 255, 0.7)), 
+                        url('/static/stylespic.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+        }
+
+        .weather {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 40px auto;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .weather h3 {
+            margin-bottom: 20px;
+            color: #1e90ff; /* Sky blue color */
+            font-size: 2rem;
+        }
+
+        .weather p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #1e90ff; /* Sky blue color */
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="weather">
+        <h3>Weather Forecast for {{ weather.location }}</h3>
+        {% if weather %}
+            <p>Temperature: {{ weather.temperature }} °C</p>
+            <p>Humidity: {{ weather.humidity }}%</p>
+            <p>Description: {{ weather.description }}</p>
+        {% else %}
+            <p>No weather data available.</p>
+        {% endif %}
+    </div>
+    
+    <footer>
+        <a href="/">Home</a>
+    </footer>
+</body>
+</html>

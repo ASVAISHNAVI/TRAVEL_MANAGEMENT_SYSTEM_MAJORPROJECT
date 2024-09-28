@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Itinerary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: url('/static/imagesitinerary.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            color: #333;
+        }
+
+        .overlay {
+            background: rgba(204, 31, 88, 0.9); /* Slightly more opaque for a pink touch */
+            width: 100%;
+            height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #e91e63; /* Pink background */
+            color: #fff;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar h2 {
+            font-family: 'Lobster', cursive;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #fff; /* White color for header */
+        }
+
+        .sidebar a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #deb019; /* Darker pink */
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #74c617; /* Even darker pink */
+            transform: translateX(5px);
+        }
+
+        .container {
+            margin-left: 270px;
+            padding: 20px;
+            flex-grow: 1;
+            transition: margin-left 0.3s ease;
+            background: rgba(255, 255, 255, 0.9); /* Slightly more opaque */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        h2 {
+            font-family: 'Lobster', cursive;
+            text-align: center;
+            font-size: 28px;
+            color: #e91e63; /* Pink color */
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fce4ec; /* Light pink background */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        input[type="text"], input[type="date"], input[type="file"] {
+            width: calc(100% - 22px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #deb019; /* Pink button */
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #c2185b; /* Darker pink */
+            transform: translateY(-2px);
+        }
+
+        .itinerary {
+            margin-top: 20px;
+        }
+
+        h3 {
+            font-family: 'Lobster', cursive;
+            color: #719a20; /* Pink color */
+            margin-bottom: 15px;
+            text-align: left;
+            font-size: 22px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background-color: #fff; /* White background for list items */
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        ul li a {
+            color: #e91e63; /* Pink color */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <div class="sidebar">
+            <h2>Travel Dashboard</h2>
+            <a href="{{ url_for('weather') }}">Check Weather</a>
+            <a href="{{ url_for('recommend_attractions') }}">Find Attractions</a>
+            <a href="{{ url_for('recommend_hotels') }}">Find Hotels</a>
+            <a href="{{ url_for('recommend_restaurants') }}">Find Restaurants</a>
+            <a href="{{ url_for('washroom_finder') }}">Find Washrooms</a>
+            <a href="{{ url_for('budget') }}">Go to Budget Tracker</a>
+            <a href="{{ url_for('directions') }}">Get Real-Time Directions</a>
+            <a href="{{ url_for('transit') }}">Get Public Transit Info</a>
+            <a href="{{ url_for('packing_list') }}">Go to Packing List</a>
+            <a href="{{ url_for('upload_photo') }}">Upload Photo</a>
+            <a href="{{ url_for('photo_gallery') }}">View Photo Gallery</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+        <div class="container">
+            <h2>Generate Your Itinerary</h2>
+            <form action="/generate-itinerary" method="POST">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" required>
+
+                <label for="start-date">Start Date</label>
+                <input type="date" id="start-date" name="start-date" required>
+
+                <label for="end-date">End Date</label>
+                <input type="date" id="end-date" name="end-date" required>
+
+                <button type="submit">Generate Itinerary</button>
+            </form>
+
+            <form action="/check_weather" method="post">
+                <label for="location">Enter Location:</label>
+                <input type="text" id="location" name="location" required>
+                <button type="submit">Check Weather</button>
+            </form>
+
+            <form action="/calculate-distance" method="POST">
+                <label for="origin">Origin:</label>
+                <input type="text" id="origin" name="origin" required>
+                <label for="destination">Destination:</label>
+                <input type="text" id="destination" name="destination" required>
+                <button type="submit">Calculate Distance</button>
+            </form>
+
+            <div class="itinerary">
+                {% for date, places in itinerary.items() %}
+                    <h3>{{ date }}</h3>
+                    <ul>
+                        {% for place in places %}
+                            <li><a href="{{ url_for('place_details', place_id=place['place_id']) }}">{{ place['name'] }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

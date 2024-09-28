@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommend Restaurants</title>
+    <style>
+        /* Your CSS styles specific to recommend_restaurants.html */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+            background-image: url('{{ url_for('static', filename='restaurantspic.jpeg') }}');
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            color: #245eb0;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #27974b;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="date"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #38b64b;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #2a7d36;
+        }
+
+        nav {
+            margin-top: 20px;
+        }
+
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .restaurant {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            max-width: 400px;
+        }
+
+        .restaurant img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Recommend Restaurants</h1>
+    <form method="POST">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+        <button type="submit">Find Restaurants</button>
+    </form>
+    <div class="restaurants">
+        {% for restaurant in restaurants %}
+            <div class="restaurant">
+                <h4>{{ restaurant['name'] }}</h4>
+                {% if restaurant['photo_url'] %}
+                    <img src="{{ restaurant['photo_url'] }}" alt="{{ restaurant['name'] }}">
+                {% endif %}
+                <p>{{ restaurant['address'] }}</p>
+                <p>Rating: {{ restaurant['rating'] }}</p>
+                <p>{{ restaurant['reviews_count'] }} reviews</p>
+                <a href="{{ url_for('place_details', place_id=restaurant['place_id']) }}">Details</a>
+            </div>
+        {% endfor %}
+    </div>
+    <nav>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </nav>
+</body>
+</html>

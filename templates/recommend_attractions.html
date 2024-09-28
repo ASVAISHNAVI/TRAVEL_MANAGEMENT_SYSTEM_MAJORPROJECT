@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block title %}Nearby Attractions{% endblock %}
+{% block content %}
+  <style>
+    /* CSS Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 80%;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    form {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #666;
+    }
+
+    input[type="text"], button {
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    button {
+      background-color: #163abd;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #94560b;
+    }
+
+    .attractions {
+      margin-top: 20px;
+    }
+
+    .attractions-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .attraction-item {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .attraction-image img {
+      max-width: 100%;
+      border-radius: 5px;
+    }
+
+    .attraction-details p {
+      margin-bottom: 8px;
+    }
+
+    .attraction-details p strong {
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+
+  <div class="container">
+    <h1>Nearby Attractions</h1>
+
+    <form method="POST" action="{{ url_for('recommend_attractions') }}">
+      <label for="location">Enter Location:</label>
+      <input type="text" id="location" name="location" required>
+      <button type="submit">Recommend Attractions</button>
+    </form>
+
+    <div class="attractions">
+      {% if attractions %}
+        <ul class="attractions-list">
+          {% for attraction in attractions %}
+            <li class="attraction-item">
+              <h2>{{ attraction.name }}</h2>
+              {% if attraction.photo_url %}
+                <div class="attraction-image">
+                  <img src="{{ attraction.photo_url }}" alt="{{ attraction.name }} Photo">
+                </div>
+              {% endif %}
+              <div class="attraction-details">
+                <p><strong>Address:</strong> {{ attraction.address }}</p>
+                <p><strong>Phone:</strong> {{ attraction.phone_number }}</p>
+                <p><strong>Rating:</strong> {{ attraction.rating }}</p>
+                <p><strong>Reviews Count:</strong> {{ attraction.reviews_count }}</p>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No attractions found.</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
